@@ -1,0 +1,5 @@
+black : #0B0C10
+dark grey: #1F2833
+light grey: #C5C6C7
+bright blue: #66FCF1
+normal blue :  #45A29E
