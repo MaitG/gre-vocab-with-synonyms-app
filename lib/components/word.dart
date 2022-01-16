@@ -2,8 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:gre_vocab_synonyms/components/meanings.dart';
+import 'package:gre_vocab_synonyms/screens/word_screen.dart';
 
 class Word extends StatelessWidget {
+  Word({required this.currentWord});
+  String currentWord;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,7 +53,7 @@ class Word extends StatelessWidget {
                   children: [
                     Text(
                       //the word text goes here
-                      'abate',
+                      '$currentWord',
                       style: TextStyle(fontSize: 45.0),
                     ),
                     Padding(

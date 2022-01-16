@@ -1,7 +1,12 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gre_vocab_synonyms/components/word.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
+int counter = 0;
+String currentWord = "";
 
 class WordScreen extends StatefulWidget {
   @override
@@ -9,6 +14,16 @@ class WordScreen extends StatefulWidget {
 }
 
 class _WordScreenState extends State<WordScreen> {
+  void getCurrentWord() async {
+    String fileData = await rootBundle.loadString('assets/word_list.txt');
+    List wordList = json.decode(fileData);
+    if (counter <= 0 || counter >= 30) {
+      counter = 0;
+    }
+    currentWord = wordList[counter];
+    print(currentWord);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +51,9 @@ class _WordScreenState extends State<WordScreen> {
           child: Column(
             children: [
               //The word Card
-              Word(),
+              Word(
+                currentWord: currentWord,
+              ),
               //Next or Previous Card Button
               Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -57,7 +74,15 @@ class _WordScreenState extends State<WordScreen> {
                           // splashColor: Color(0xff66FCF1),
                           padding: EdgeInsets.all(10.0),
                           icon: const Icon(Icons.arrow_back),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (counter <= 0) {
+                              counter = 0;
+                            }
+                            counter--;
+                            setState(() {
+                              getCurrentWord();
+                            });
+                          },
                         ),
                         SizedBox(
                           width: 100.0,
@@ -79,7 +104,12 @@ class _WordScreenState extends State<WordScreen> {
                           // splashColor: Color(0xff66FCF1),
                           padding: EdgeInsets.all(10.0),
                           icon: const Icon(Icons.arrow_forward),
-                          onPressed: () {},
+                          onPressed: () {
+                            counter++;
+                            setState(() {
+                              getCurrentWord();
+                            });
+                          },
                         ),
                       ],
                     ),
