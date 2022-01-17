@@ -1,27 +1,72 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, non_constant_identifier_names
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gre_vocab_synonyms/components/word.dart';
 import 'package:flutter/services.dart' show rootBundle;
-
-int counter = 0;
-String currentWord = "";
+import 'package:gre_vocab_synonyms/services/word_data.dart';
 
 class WordScreen extends StatefulWidget {
+  WordScreen({this.wordDef});
+  final wordDef;
   @override
   _WordScreenState createState() => _WordScreenState();
 }
 
 class _WordScreenState extends State<WordScreen> {
+  WordDataModel wordDataModel = WordDataModel();
+
+  String word = "";
+  String apiWord = "";
+  int counter = 0;
+  int total_words = 0;
+  String currentWord = "";
+  String audio = "";
+  String phonetics = "";
+  List meanings = [];
+  @override
+  void initState() {
+    super.initState();
+    getCurrentWord();
+    updateUI(widget.wordDef);
+  }
+
   void getCurrentWord() async {
     String fileData = await rootBundle.loadString('assets/word_list.txt');
     List wordList = json.decode(fileData);
-    if (counter <= 0 || counter >= 30) {
+    total_words = wordList.length;
+    if (counter <= 0 || counter >= total_words) {
       counter = 0;
     }
-    currentWord = wordList[counter];
-    print(currentWord);
+    setState(() {
+      word = wordList[counter];
+      getWordData(word);
+    });
+  }
+
+  void getWordData(word) async {
+    var something = await wordDataModel.getWordData(word);
+    updateUI(something);
+  }
+
+  //void getCurrentWordData(String word) {}
+  void updateUI(dynamic wordData) {
+    setState(() {
+      if (wordData == null) {
+        String audio = "";
+        String phonetics = "";
+        List meanings = [];
+        return;
+      }
+      apiWord = wordData[0]['word'];
+      audio = wordData[0]['phonetics'][0]['audio'];
+      phonetics = wordData[0]['phonetics'][0]['text'];
+      meanings = wordData[0]['meanings'];
+    });
+    print("here am i");
+    print(apiWord);
+    print(audio);
+    print(phonetics);
   }
 
   @override
@@ -52,7 +97,10 @@ class _WordScreenState extends State<WordScreen> {
             children: [
               //The word Card
               Word(
-                currentWord: currentWord,
+                currentWord: word,
+                phonetics: phonetics,
+                audio: audio,
+                meanings: meanings,
               ),
               //Next or Previous Card Button
               Padding(
@@ -91,7 +139,7 @@ class _WordScreenState extends State<WordScreen> {
                           onPressed: () {},
                           //Counter for the cards
                           child: Text(
-                            "12/30",
+                            "${counter + 1}/$total_words",
                             style: TextStyle(color: Colors.black),
                           ),
                         ),

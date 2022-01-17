@@ -2,14 +2,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:gre_vocab_synonyms/components/meanings.dart';
-import 'package:gre_vocab_synonyms/screens/word_screen.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class Word extends StatelessWidget {
-  Word({required this.currentWord});
+  Word(
+      {required this.currentWord,
+      required this.phonetics,
+      required this.audio,
+      required this.meanings});
   String currentWord;
+  String phonetics;
+  String audio;
+  List meanings;
 
   @override
   Widget build(BuildContext context) {
+    AudioPlayer audioPlayer = AudioPlayer();
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -40,7 +48,10 @@ class Word extends StatelessWidget {
                       padding: EdgeInsets.all(10.0),
                       icon: const Icon(Icons.volume_up),
                       //audio should be played
-                      onPressed: () {},
+                      onPressed: () async {
+                        print(meanings);
+                        await audioPlayer.play('https:$audio');
+                      },
                     ),
                   ),
                 ),
@@ -53,13 +64,13 @@ class Word extends StatelessWidget {
                   children: [
                     Text(
                       //the word text goes here
-                      '$currentWord',
+                      currentWord,
                       style: TextStyle(fontSize: 45.0),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 5.0),
                       //the word phonetic goes here
-                      child: Text("/həˈləʊ/"),
+                      child: Text("/$phonetics/"),
                     ),
                   ],
                 ),
@@ -68,6 +79,7 @@ class Word extends StatelessWidget {
             SizedBox(
               height: 15.0,
             ),
+
             //the meaning is decoded here
             Meanings(
               partOfSpeech: 'verb',

@@ -9,6 +9,8 @@ class NetworkHelper {
 
   Future getData() async {
     http.Response response = await http.get(Uri.parse(url));
+    print("WordData");
+    print(url);
 
     if (response.statusCode == 200) {
       String data = response.body;
