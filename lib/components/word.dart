@@ -18,6 +18,9 @@ class Word extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AudioPlayer audioPlayer = AudioPlayer();
+    int meanings_length = meanings.length;
+    print(meanings);
+    //print(meanings[5]['definitions']);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -79,23 +82,27 @@ class Word extends StatelessWidget {
             SizedBox(
               height: 15.0,
             ),
+            for (int i = 0; i < meanings_length; i++)
+              Meanings(
+                  partOfSpeech: meanings[i]['partOfSpeech'],
+                  definitions: meanings[i]['definitions'])
 
             //the meaning is decoded here
-            Meanings(
-              partOfSpeech: 'verb',
-              synonyms: ["1", "2", "3"],
-              antonyms: ["5", "6", "7"],
-              definition:
-                  '(of something unpleasant or severe) become less intense or widespread."the storm suddenly abated"',
-              example: "used in a sentence",
-            ),
-            Meanings(
-                partOfSpeech: 'noun',
-                definition:
-                    '(of something unpleasant or severe) become less intense or widespread."the storm suddenly abated"',
-                example: "used in a sentence",
-                synonyms: ["1", "2", "3"],
-                antonyms: ["5", "6", "7"]),
+            // Meanings(
+            //   partOfSpeech: 'verb',
+            //   synonyms: ["1", "2", "3"],
+            //   antonyms: ["5", "6", "7"],
+            //   definition:
+            //       '(of something unpleasant or severe) become less intense or widespread."the storm suddenly abated"',
+            //   example: "used in a sentence",
+            // ),
+            // Meanings(
+            //     partOfSpeech: 'noun',
+            //     definition:
+            //         '(of something unpleasant or severe) become less intense or widespread."the storm suddenly abated"',
+            //     example: "used in a sentence",
+            //     synonyms: ["1", "2", "3"],
+            //     antonyms: ["5", "6", "7"]),
           ],
         ),
       ),
