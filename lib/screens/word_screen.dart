@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:gre_vocab_synonyms/components/word.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:gre_vocab_synonyms/services/word_data.dart';
+import 'package:flip_card/flip_card.dart';
 
 class WordScreen extends StatefulWidget {
   WordScreen({this.wordDef});
@@ -96,11 +97,34 @@ class _WordScreenState extends State<WordScreen> {
           child: Column(
             children: [
               //The word Card
-              Word(
-                currentWord: word,
-                phonetics: phonetics,
-                audio: audio,
-                meanings: meanings,
+              FlipCard(
+                back: Word(
+                  currentWord: word,
+                  phonetics: phonetics,
+                  audio: audio,
+                  meanings: meanings,
+                ),
+                front: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    height: 600.0,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20.0),
+                      border: Border.all(color: Color(0xff66FCF1), width: 1),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Center(
+                        child: Text(
+                          //the word text goes here
+                          word,
+                          style: TextStyle(fontSize: 45.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
               //Next or Previous Card Button
               Padding(

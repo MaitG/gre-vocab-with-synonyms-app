@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   http: ^0.13.4
   audioplayers: ^0.20.1
+  flip_card: ^0.6.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

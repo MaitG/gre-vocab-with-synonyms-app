@@ -35,13 +35,9 @@ class Meanings extends StatelessWidget {
         //     antonyms: antonyms),
         for (int i = 0; i < total_definitions; i++)
           Definitions(
-            definition: definitions[i]['definition'] != null
-                ? definitions[i]['definition']
-                : "",
+            definition: definitions[i]['definition'] ?? "",
             antonyms: definitions[i]['antonyms'],
-            example: definitions[i]['example'] != null
-                ? definitions[i]['example']
-                : "",
+            example: definitions[i]['example'] ?? "",
             synonyms: definitions[i]['synonyms'],
           ),
         // Divider(
