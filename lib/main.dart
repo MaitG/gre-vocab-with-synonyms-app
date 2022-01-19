@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:gre_vocab_synonyms/screens/home_screen.dart';
 // ignore: unused_import
 import 'package:gre_vocab_synonyms/screens/test.dart';
 import 'package:gre_vocab_synonyms/screens/word_screen.dart';
@@ -15,8 +16,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Vocab + Synonyms",
       darkTheme: ThemeData(brightness: Brightness.dark),
-      home: WordScreen(),
-      //home: TestScreen(),
+      initialRoute: 'homeScreen',
+      routes: {
+        'homeScreen': (context) => HomeScreen(),
+        'wordScreen': (context) => WordScreen()
+      },
     );
   }
 }

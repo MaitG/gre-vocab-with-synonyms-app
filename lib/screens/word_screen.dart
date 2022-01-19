@@ -52,28 +52,27 @@ class _WordScreenState extends State<WordScreen> {
 
   //void getCurrentWordData(String word) {}
   void updateUI(dynamic wordData) {
-    setState(() {
-      if (wordData == null) {
-        String audio = "";
-        String phonetics = "";
-        List meanings = [];
-        return;
-      }
-      apiWord = wordData[0]['word'];
-      audio = wordData[0]['phonetics'][0]['audio'];
-      phonetics = wordData[0]['phonetics'][0]['text'];
-      meanings = wordData[0]['meanings'];
-    });
-    print("here am i");
-    print(apiWord);
-    print(audio);
-    print(phonetics);
+    if (this.mounted) {
+      setState(() {
+        if (wordData == null) {
+          String audio = "";
+          String phonetics = "";
+          List meanings = [];
+          return;
+        }
+        apiWord = wordData[0]['word'];
+        audio = wordData[0]['phonetics'][0]['audio'];
+        phonetics = wordData[0]['phonetics'][0]['text'];
+        meanings = wordData[0]['meanings'];
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Color(0xFF0B0C10),
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Color(0xFF0B0C10),
@@ -82,7 +81,9 @@ class _WordScreenState extends State<WordScreen> {
           children: [
             IconButton(
               icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
             ),
             Text(
               "Vocab + Synonyms",

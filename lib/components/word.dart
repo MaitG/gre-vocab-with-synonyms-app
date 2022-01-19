@@ -19,7 +19,7 @@ class Word extends StatelessWidget {
   Widget build(BuildContext context) {
     AudioPlayer audioPlayer = AudioPlayer();
     int meanings_length = meanings.length;
-    print(meanings);
+    //print(meanings);
     //print(meanings[5]['definitions']);
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -54,7 +54,7 @@ class Word extends StatelessWidget {
                         icon: const Icon(Icons.volume_up),
                         //audio should be played
                         onPressed: () async {
-                          print(meanings);
+                          //print(meanings);
                           await audioPlayer.play('https:$audio');
                         },
                       ),
