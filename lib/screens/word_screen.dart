@@ -25,6 +25,7 @@ class _WordScreenState extends State<WordScreen> {
   String audio = "";
   String phonetics = "";
   List meanings = [];
+  List words = [];
   @override
   void initState() {
     super.initState();
@@ -33,6 +34,7 @@ class _WordScreenState extends State<WordScreen> {
   }
 
   void getCurrentWord() async {
+    print(words);
     String fileData = await rootBundle.loadString('assets/word_list.txt');
     List wordList = json.decode(fileData);
     total_words = wordList.length;
@@ -71,7 +73,12 @@ class _WordScreenState extends State<WordScreen> {
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)!.settings.arguments as Map;
-    if (arguments != null) print(arguments);
+    //if (arguments != null) print(arguments);
+    words = arguments['wordList'];
+    print("word list received in the wordscreen");
+    print(words[0]);
+    print(words);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

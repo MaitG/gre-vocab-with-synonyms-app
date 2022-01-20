@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:gre_vocab_synonyms/screens/home_screen.dart';
 
@@ -14,23 +15,16 @@ class DeckCard extends StatefulWidget {
 
 class _DeckCardState extends State<DeckCard> {
   List deck = [];
-  int list_len = 0;
-
-  void deckData(int deckNo) async {
+  Future<List> deckData(int deckNo) async {
     String fileData = await rootBundle.loadString('assets/word_list.json');
     var wordList = json.decode(fileData);
     setState(() {
-      deck = wordList['Group $deckNo'];
-      list_len = deck.length;
+      String x = "Group $deckNo";
+      print(x);
+      deck = wordList["Group 4"];
+      int list_len = deck.length;
     });
-
-    print(deckNo);
-
-    //print(wordList['Group 1']);
-
-    for (int i = 0; i < list_len; i++) {
-      //print(deck[i]);
-    }
+    return deck;
   }
 
   @override
@@ -56,10 +50,10 @@ class _DeckCardState extends State<DeckCard> {
                 style: TextStyle(fontSize: 38.0, color: Color(0xff66FCF1)),
               ),
               IconButton(
-                onPressed: () {
+                onPressed: () async {
+                  var data = await deckData(widget.number);
                   Navigator.pushNamed(context, 'wordScreen',
                       arguments: {'wordList': deck});
-                  deckData(widget.number);
                 },
                 icon: Icon(Icons.arrow_forward_ios),
                 color: Color(0xff66FCF1),
