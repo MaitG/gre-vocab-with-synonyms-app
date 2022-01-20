@@ -21,7 +21,7 @@ class _DeckCardState extends State<DeckCard> {
     setState(() {
       String x = "Group $deckNo";
       print(x);
-      deck = wordList["Group 4"];
+      deck = wordList["Group $deckNo"];
       int list_len = deck.length;
     });
     return deck;

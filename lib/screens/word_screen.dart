@@ -37,12 +37,13 @@ class _WordScreenState extends State<WordScreen> {
     print(words);
     String fileData = await rootBundle.loadString('assets/word_list.txt');
     List wordList = json.decode(fileData);
-    total_words = wordList.length;
-    if (counter <= 0 || counter >= total_words) {
-      counter = 0;
-    }
+
     setState(() {
-      word = wordList[counter];
+      total_words = words.length;
+      if (counter <= 0 || counter >= total_words) {
+        counter = 0;
+      }
+      word = words[counter];
       getWordData(word);
     });
   }
