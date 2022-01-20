@@ -16,14 +16,16 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   void fetchDeck() async {
     String fileData = await rootBundle.loadString('assets/word_list.json');
-    var wordList = json.decode(fileData);
-    deckNo = wordList.length;
+    setState(() {
+      var wordList = json.decode(fileData);
+      deckNo = wordList.length;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    if (mounted) fetchDeck();
+    fetchDeck();
   }
 
   @override
@@ -45,7 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
         //Body
         body: SingleChildScrollView(
           child: Column(
-            children: [for (int i = 1; i <= deckNo; i++) DeckCard(number: i)],
+            children: [
+              for (int i = 1; i <= deckNo; i++) DeckCard(number: i),
+            ],
           ),
         ));
   }
