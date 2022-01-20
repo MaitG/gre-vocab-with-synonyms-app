@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gre_vocab_synonyms/components/deck.dart';
+
+int deckNo = 0;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,6 +14,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  void fetchDeck() async {
+    String fileData = await rootBundle.loadString('assets/word_list.json');
+    var wordList = json.decode(fileData);
+    deckNo = wordList.length;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (mounted) {
+      fetchDeck();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,20 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         //Body
         body: SingleChildScrollView(
           child: Column(
-            children: [
-              DeckCard(
-                number: 1,
-              ),
-              DeckCard(
-                number: 2,
-              ),
-              DeckCard(
-                number: 3,
-              ),
-              DeckCard(
-                number: 4,
-              ),
-            ],
+            children: [for (int i = 1; i <= deckNo; i++) DeckCard(number: i)],
           ),
         ));
   }

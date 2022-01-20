@@ -70,6 +70,8 @@ class _WordScreenState extends State<WordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as Map;
+    if (arguments != null) print(arguments);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
