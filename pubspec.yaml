@@ -56,6 +56,7 @@ dev_dependencies:
 flutter:
   assets: 
     - assets/word_list.txt
+    - assets/word_list.json
   
 
   # The following line ensures that the Material Icons font is
