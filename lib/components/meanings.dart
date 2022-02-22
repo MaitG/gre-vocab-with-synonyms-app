@@ -36,9 +36,9 @@ class Meanings extends StatelessWidget {
         for (int i = 0; i < total_definitions; i++)
           Definitions(
             definition: definitions[i]['definition'] ?? "",
-            antonyms: definitions[i]['antonyms'],
+            antonyms: definitions[i]['antonyms'] ?? [],
             example: definitions[i]['example'] ?? "",
-            synonyms: definitions[i]['synonyms'],
+            synonyms: definitions[i]['synonyms'] ?? [],
           ),
         // Divider(
         //   color: Color(0xffC5C6C7),

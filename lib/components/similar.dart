@@ -5,7 +5,7 @@ import 'package:gre_vocab_synonyms/components/synonyms.dart';
 
 class Similar extends StatelessWidget {
   String title;
-  List related_words;
+  var related_words;
 
   Similar({required this.title, required this.related_words});
 
